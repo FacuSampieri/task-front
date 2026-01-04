@@ -1,0 +1,56 @@
+.history
+.next
+*.log
+*.tmp
+.DS_Store
+node_modules/
+dist/
+.env
+.vscode/
+.idea/
+*.swp
+*.bak
+# Node.js
+node_modules/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+.next/
+out/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Misc
+*.log
+*.sqlite
+*.sqlite3
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# Others
+.idea/
+*.swp
+*.swo
+
+# Optional: ignore public/uploads if you store user files
+public/uploads/
