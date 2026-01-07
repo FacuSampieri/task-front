@@ -18,6 +18,8 @@ import { Loader2 } from "lucide-react"
 const registerSchema = z
   .object({
     name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+    lastName: z.string().min(2, "El apellido debe tener al menos 2 caracteres"),
+    phone: z.string().min(6, "El teléfono debe tener al menos 6 caracteres"),
     email: z.string().email("Correo electrónico inválido"),
     password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
     confirmPassword: z.string(),
@@ -39,6 +41,8 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
+      lastName: "",
+      phone: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -49,6 +53,8 @@ export default function RegisterPage() {
     try {
       const result = await register({
         name: values.name,
+        lastName: values.lastName,
+        phone: values.phone,
         email: values.email,
         password: values.password,
       }).unwrap()
@@ -94,6 +100,32 @@ export default function RegisterPage() {
                     <FormLabel>Nombre</FormLabel>
                     <FormControl>
                       <Input placeholder="Tu nombre" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Apellido</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Tu apellido" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Teléfono</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Tu teléfono" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
