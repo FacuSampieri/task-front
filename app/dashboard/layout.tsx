@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LayoutList, LayoutGrid, Calendar, Moon, Sun, LogOut, User, MessageCircle } from "lucide-react"
+import { LayoutList, LayoutGrid, Calendar, Moon, Sun, LogOut, User, MessageCircle, Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 
@@ -39,6 +39,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { href: "/dashboard/board", label: "Tablero", icon: LayoutGrid },
     { href: "/dashboard/calendar", label: "Calendario", icon: Calendar },
     { href: "/dashboard/groups", label: "Grupos", icon: LayoutGrid },
+    { href: "/dashboard/integrations", label: "Integraciones", icon: Zap },
   ]
 
   return (

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useGetTasksQuery } from "@/lib/features/tasks/tasks-api"
 import type { Task } from "@/lib/features/tasks/tasks-api"
 import { useGetGroupsQuery } from "@/lib/features/groups/groups-api"
@@ -25,6 +25,27 @@ export default function DashboardPage() {
     groupId: groupFilter !== "all" ? groupFilter : undefined,
   }
   const { data: tasks = [], isLoading, error } = useGetTasksQuery([queryParams])
+
+  // Ordenar tareas: primero las que tienen fecha de finalización (ordenadas por fecha),
+  // luego las que no tienen fecha
+  const sortedTasks = useMemo(() => {
+    return [...tasks].sort((a, b) => {
+      const dateA = a.dueDate ? new Date(a.dueDate).getTime() : null
+      const dateB = b.dueDate ? new Date(b.dueDate).getTime() : null
+
+      // Si ambas tienen fecha, ordenar por fecha (más cercana primero)
+      if (dateA !== null && dateB !== null) {
+        return dateA - dateB
+      }
+
+      // Si solo una tiene fecha, la que tiene fecha va primero
+      if (dateA !== null) return -1
+      if (dateB !== null) return 1
+
+      // Si ninguna tiene fecha, mantener orden original
+      return 0
+    })
+  }, [tasks])
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -69,7 +90,7 @@ export default function DashboardPage() {
           </p>
         </div>
       ) : (
-        <TaskList tasks={tasks} groups={groups} />
+        <TaskList tasks={sortedTasks} groups={groups} />
       )}
 
       <CreateTaskDialog open={createDialogOpen} onOpenChange={setCreateDialogOpen} />
