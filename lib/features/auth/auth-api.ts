@@ -53,7 +53,11 @@ export const authApi = apiSlice.injectEndpoints({
         body: tokens,
       }),
     }),
+    getIntegrationStatus: builder.query<{ telegramStatus: string }, void>({
+      query: () => "/users/integration/status",
+      providesTags: ["IntegrationStatus"],
+    }),
   }),
 })
 
-export const { useLoginMutation, useRegisterMutation, useGetMeQuery } = authApi
+export const { useLoginMutation, useRegisterMutation, useGetMeQuery, useGetIntegrationStatusQuery } = authApi

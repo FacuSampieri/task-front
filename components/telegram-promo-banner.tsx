@@ -1,14 +1,18 @@
 "use client"
 
-import { AlertCircle, MessageCircle, X } from "lucide-react"
+import { AlertCircle, MessageCircle, X, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { useState } from "react"
+import { useGetIntegrationStatusQuery } from "@/lib/features/auth/auth-api"
 
 export function TelegramPromoBanner() {
   const [dismissed, setDismissed] = useState(false)
+  const { data: integrationStatus, isLoading } = useGetIntegrationStatusQuery()
+  
+  const isConnected = integrationStatus?.telegramStatus === "connected"
 
-  if (dismissed) return null
+  if (dismissed || isConnected || isLoading) return null
 
   return (
     <Alert className="border-cyan-500/20 bg-cyan-500/5 mb-6">

@@ -2,10 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { MessageCircle, ExternalLink } from "lucide-react"
+import { MessageCircle, ExternalLink, CheckCircle, Clock } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { useGetIntegrationStatusQuery } from "@/lib/features/auth/auth-api"
 
 export default function IntegrationsPage() {
   const TELEGRAM_BOT_URL = "https://t.me/task_manager74_bot"
+  const { data: integrationStatus, isLoading } = useGetIntegrationStatusQuery()
+  
+  const isConnected = integrationStatus?.telegramStatus === "connected"
 
   const handleTelegramConnect = () => {
     window.open(TELEGRAM_BOT_URL, "_blank", "noopener,noreferrer")
@@ -29,7 +34,24 @@ export default function IntegrationsPage() {
                   <MessageCircle className="h-6 w-6 text-cyan-500" />
                 </div>
                 <div>
-                  <CardTitle>Telegram Bot</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <CardTitle>Telegram Bot</CardTitle>
+                    {isLoading ? (
+                      <Badge variant="outline" className="ml-2">
+                        <Clock className="h-3 w-3 mr-1" />
+                        Verificando...
+                      </Badge>
+                    ) : isConnected ? (
+                      <Badge className="ml-2 bg-green-500/20 text-green-700 border-green-500/30">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Conectado
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" className="ml-2">
+                        No conectado
+                      </Badge>
+                    )}
+                  </div>
                   <CardDescription>Gestiona tus tareas desde Telegram</CardDescription>
                 </div>
               </div>
@@ -59,15 +81,25 @@ export default function IntegrationsPage() {
             </div>
 
             <div className="space-y-3 pt-4">
-              <p className="text-sm">
-                Haz clic en el botón de abajo para conectar tu cuenta con nuestro bot de Telegram. Una vez conectado, podrás gestionar todas tus tareas desde la aplicación de Telegram.
-              </p>
+              {isConnected ? (
+                <div className="rounded-lg bg-green-500/10 border border-green-500/20 p-3">
+                  <p className="text-sm text-green-700 font-medium">
+                    ✅ Tu cuenta está conectada con Telegram Bot
+                  </p>
+                </div>
+              ) : (
+                <p className="text-sm">
+                  Haz clic en el botón de abajo para conectar tu cuenta con nuestro bot de Telegram. Una vez conectado, podrás gestionar todas tus tareas desde la aplicación de Telegram.
+                </p>
+              )}
+              
               <Button
                 onClick={handleTelegramConnect}
                 className="w-full bg-cyan-500 hover:bg-cyan-600"
+                disabled={isLoading}
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
-                Conectar con Telegram Bot
+                {isConnected ? "Ir al Bot de Telegram" : "Conectar con Telegram Bot"}
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
               <p className="text-xs text-muted-foreground text-center">
