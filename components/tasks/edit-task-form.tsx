@@ -115,7 +115,7 @@ export function EditTaskForm({ task, onSuccess }: EditTaskFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Estado</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue />
@@ -138,7 +138,7 @@ export function EditTaskForm({ task, onSuccess }: EditTaskFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Prioridad</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue />
@@ -176,7 +176,7 @@ export function EditTaskForm({ task, onSuccess }: EditTaskFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Grupo</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value || "none"}>
+              <Select onValueChange={field.onChange} value={field.value || "none"}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecciona un grupo" />
