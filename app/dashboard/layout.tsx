@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LayoutList, LayoutGrid, Calendar, Moon, Sun, LogOut, User } from "lucide-react"
+import { LayoutList, LayoutGrid, Calendar, Moon, Sun, LogOut, User, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 
@@ -75,6 +75,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Button
               variant="ghost"
               size="icon"
+              onClick={() => window.open("https://t.me/task_manager74_bot", "_blank", "noopener,noreferrer")}
+              title="Conectar Telegram Bot"
+              className="hidden sm:flex"
+            >
+              <MessageCircle className="h-5 w-5" />
+              <span className="sr-only">Conectar Telegram Bot</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="hidden md:flex"
             >
@@ -100,6 +110,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     )}
                   </div>
                 </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => window.open("https://t.me/task_manager74_bot", "_blank", "noopener,noreferrer")}>
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  <span>Conectar Telegram Bot</span>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="md:hidden" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
                   {theme === "dark" ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}

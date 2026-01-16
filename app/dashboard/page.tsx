@@ -10,6 +10,7 @@ import { TaskList } from "@/components/tasks/task-list"
 import { TaskFilters } from "@/components/tasks/task-filters"
 import { CreateTaskDialog } from "@/components/tasks/create-task-dialog"
 import { Skeleton } from "@/components/ui/skeleton"
+import { TelegramPromoBanner } from "@/components/telegram-promo-banner"
 
 export default function DashboardPage() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
@@ -27,6 +28,7 @@ export default function DashboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <TelegramPromoBanner />
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Mis Tareas</h1>
